@@ -15,7 +15,6 @@ type ProblemBasic struct {
 	TestCase          []*TestCase        `gorm:"foreignKey:problem_identity;references:identity"`
 	PassNum           int64              `gorm:"column:pass_num;type:int(11);" json:"pass_num"`     //完成问题的个数
 	SubmitNum         int64              `gorm:"column:submit_num;type:int(11);" json:"submit_num"` //提交次数
-
 }
 
 func (table *ProblemBasic) TableName() string {

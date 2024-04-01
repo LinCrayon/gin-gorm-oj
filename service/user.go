@@ -111,7 +111,7 @@ func SendCode(c *gin.Context) {
 	}
 	//TODO
 	code := helper.GetRand()
-	models.RDB.Set(c, email, code, time.Second*300)
+	models.RDB.Set(c, email, code, time.Second*300000)
 	err := helper.SendCode(email, code)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -236,7 +236,7 @@ func GetRankList(c *gin.Context) {
 	page = (page - 1) * size
 	var count int64
 	list := make([]*models.UserBasic, 0)
-	err = models.DB.Model(new(models.UserBasic)).Count(&count).Order("finish_problem_num DESC,submit_num ASC").
+	err = models.DB.Model(new(models.UserBasic)).Count(&count).Order("pass_num DESC,submit_num ASC").
 		Offset(page).Limit(size).Find(&list).Error
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{

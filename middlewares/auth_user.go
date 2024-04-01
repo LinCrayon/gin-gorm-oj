@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"lsq.com/helper"
 	"net/http"
@@ -28,7 +27,6 @@ func AuthUserCheck() gin.HandlerFunc {
 			})
 			return
 		}
-		fmt.Println(userClaim)
 		c.Set("user_claims", userClaim)
 		c.Next()
 	}

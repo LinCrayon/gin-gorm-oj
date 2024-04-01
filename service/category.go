@@ -138,7 +138,9 @@ func GetCategoryDelete(c *gin.Context) {
 		return
 	}
 	var cnt int64
-	err := models.DB.Model(new(models.ProblemCategory)).Where("category_id = (SELECT id FROM category_basic WHERE identity = ? LIMIT 1)", identity).Count(&cnt).Error
+	err := models.DB.Model(new(models.ProblemCategory)).
+		Where("category_id = (SELECT id FROM category_basic WHERE identity = ? LIMIT 1)", identity).
+		Count(&cnt).Error
 	if err != nil {
 		log.Println("Get ProblemCategory Error:", err)
 		c.JSON(http.StatusOK, gin.H{

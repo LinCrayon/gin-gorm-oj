@@ -76,7 +76,7 @@ func GetSubmitList(c *gin.Context) {
 // @Router /user/submit [post]
 func Submit(c *gin.Context) {
 	problemIdentity := c.Query("problem_identity")
-	code, err := ioutil.ReadAll(c.Request.Body)
+	code, err := ioutil.ReadAll(c.Request.Body) //取所有数据直到 EOF
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"code": -1,
@@ -103,7 +103,8 @@ func Submit(c *gin.Context) {
 	}
 	// 代码判断
 	pb := new(models.ProblemBasic)
-	err = models.DB.Where("identity = ?", problemIdentity).Preload("TestCase").First(pb).Error
+	err = models.DB.Where("identity = ?", problemIdentity).
+		Preload("TestCase").First(pb).Error
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"code": -1,
@@ -132,10 +133,10 @@ func Submit(c *gin.Context) {
 		testCase := testCase
 		go func() {
 			cmd := exec.Command("go", "run", path)
-			var out, stderr bytes.Buffer
+			var out, stderr bytes.Buffer //操作字节序列
 			cmd.Stderr = &stderr
 			cmd.Stdout = &out
-			stdinPipe, err := cmd.StdinPipe()
+			stdinPipe, err := cmd.StdinPipe() //获取一个可写的管道，写入数据
 			if err != nil {
 				log.Fatalln(err)
 			}
@@ -155,8 +156,8 @@ func Submit(c *gin.Context) {
 			var em runtime.MemStats
 			runtime.ReadMemStats(&em)
 			//答案错误
-			fmt.Println("===testCase=" + testCase.Output + "==testCase==")
-			fmt.Println("==out==" + out.String() + "==out==")
+			fmt.Println("===testCase=" + testCase.Output + "==testCase==") //TODO TODO
+			fmt.Println("==out==" + out.String() + "==out==")              //TODO bug
 			if testCase.Output != out.String() {
 				msg = "答案错误"
 				WA <- 1

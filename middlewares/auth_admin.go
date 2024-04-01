@@ -12,7 +12,7 @@ func AuthAdminCheck() gin.HandlerFunc {
 		auth := c.GetHeader("Authorization")
 		userClaim, err := helper.AnalyseToken(auth)
 		if err != nil {
-			c.Abort()
+			c.Abort() //中止当前请求的处理流程 ,不会继续执行
 			c.JSON(http.StatusOK, gin.H{
 				"code": http.StatusUnauthorized,
 				"msg":  "Unauthorized Authorization",
@@ -27,6 +27,6 @@ func AuthAdminCheck() gin.HandlerFunc {
 			})
 			return
 		}
-		c.Next()
+		c.Next() //继续执行下一个处理程序或中间件,将控制权传递给下一个中间件或处理程序
 	}
 }

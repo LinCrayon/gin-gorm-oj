@@ -31,7 +31,7 @@ func GetProblemList(c *gin.Context) {
 		return
 	}
 	//page == 1 ===> offset 0
-	page = (page - 1) * size
+	page = (page - 1) * size //偏移量
 	var count int64
 	keyword := c.Query("keyword")
 	categoryIdentity := c.Query("category_identity")
@@ -71,6 +71,7 @@ func GetProblemDetail(c *gin.Context) {
 		})
 		return
 	}
+	//预加载可以避免 N+1 查询问题，即在查询主记录时额外发送多次查询以获取其关联记录
 	data := new(models.ProblemBasic)
 	err := models.DB.Where("identity = ?", identity).
 		Preload("ProblemCategories").
@@ -145,7 +146,7 @@ func ProblemCreate(c *gin.Context) {
 	testCaseBasics := make([]*models.TestCase, 0)
 	for _, testCase := range testCases {
 		caseMap := make(map[string]string)
-		err := json.Unmarshal([]byte(testCase), &caseMap)
+		err := json.Unmarshal([]byte(testCase), &caseMap) //JSON ---->struct
 		if err != nil {
 			c.JSON(http.StatusOK, gin.H{
 				"code": -1,
@@ -156,14 +157,14 @@ func ProblemCreate(c *gin.Context) {
 		if _, ok := caseMap["input"]; !ok {
 			c.JSON(http.StatusOK, gin.H{
 				"code": -1,
-				"msg":  "测试用例格式错误2",
+				"msg":  "测试用例格式错误input",
 			})
 			return
 		}
 		if _, ok := caseMap["output"]; !ok {
 			c.JSON(http.StatusOK, gin.H{
 				"code": -1,
-				"msg":  "测试用例格式错误3",
+				"msg":  "测试用例格式错误output",
 			})
 			return
 		}
