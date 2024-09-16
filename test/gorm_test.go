@@ -2,9 +2,9 @@ package test
 
 import (
 	"fmt"
+	"github.com/LinCrayon/gin-gorm-oj/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"lsq.com/models"
 	"testing"
 )
 

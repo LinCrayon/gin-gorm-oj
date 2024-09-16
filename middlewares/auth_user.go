@@ -1,8 +1,8 @@
 package middlewares
 
 import (
+	"github.com/LinCrayon/gin-gorm-oj/helper"
 	"github.com/gin-gonic/gin"
-	"lsq.com/helper"
 	"net/http"
 )
 

@@ -3,8 +3,8 @@ package test
 import (
 	"context"
 	"fmt"
+	"github.com/LinCrayon/gin-gorm-oj/models"
 	"github.com/redis/go-redis/v9"
-	"lsq.com/models"
 	"testing"
 	"time"
 )

@@ -3,12 +3,12 @@ package service
 import (
 	"encoding/json"
 	"errors"
+	"github.com/LinCrayon/gin-gorm-oj/define"
+	"github.com/LinCrayon/gin-gorm-oj/helper"
+	"github.com/LinCrayon/gin-gorm-oj/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"log"
-	"lsq.com/define"
-	"lsq.com/helper"
-	"lsq.com/models"
 	"net/http"
 	"strconv"
 )

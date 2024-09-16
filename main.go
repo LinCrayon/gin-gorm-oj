@@ -1,6 +1,6 @@
 package main
 
-import "lsq.com/router"
+import "github.com/LinCrayon/gin-gorm-oj/router"
 
 func main() {
 	r := router.Router()

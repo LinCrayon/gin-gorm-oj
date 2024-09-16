@@ -1,12 +1,12 @@
 package router
 
 import (
+	_ "github.com/LinCrayon/gin-gorm-oj/docs"
+	"github.com/LinCrayon/gin-gorm-oj/middlewares"
+	"github.com/LinCrayon/gin-gorm-oj/service"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	_ "lsq.com/docs"
-	"lsq.com/middlewares"
-	"lsq.com/service"
 )
 
 func Router() *gin.Engine {
